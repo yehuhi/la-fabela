@@ -1,109 +1,145 @@
 <template>
-  <q-layout view="lHh Lpr lFf" style="background-color: #e3e1e1">
-    <q-header elevated style="color: black">
-      <q-toolbar style="background-color: #ffd484">
+  <q-layout view="hHh LpR fff" style="background-color: #737373">
+    <q-header elevated style="color: black" dir="rtl">
+      <q-toolbar style="background-color: #ffce0c" dir="rtl">
         <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          icon="menu"
+            flat
+            dense
+            round
+            @click="right = !right"
+            aria-label="Menu"
+            icon="menu"
         />
 
         <q-toolbar-title>
-          <q-item clickable tag="a"  href="http://localhost:8082/#/">
-            La Fabela
-            <span style="font-size: 5px">BETA</span>
+          <q-item clickable tag="a" @click="$router.push('/home')">
+            <!--          <q-item clickable tag="a" href="https://la-fabela.web.app/#/">-->
+            לה פבאלה
+            <span style="font-size: 5px; font-weight: bold ">BETA</span>
           </q-item>
         </q-toolbar-title>
-
-        <div> v {{ "1.0" }}</div>
+        <q-btn flat round dense icon="search"/>
+        <q-item clickable tag="a" @click="goProfile()">
+          <q-icon name="person_outline" style="margin-top: 4px; font-size: 25px; left: -10px"/>
+        </q-item>
+        <!--        <div> v {{ "1.0" }}</div>-->
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-      content-class="bg-grey-2"
+        show-if-above
+        v-model="right"
+        side="right"
+        bordered
+        content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>MENU</q-item-label>
+        <q-item-label header>תפריט</q-item-label>
+        <q-item clickable tag="a" @click="goProfile()">
+          <q-item-section avatar>
+            <q-icon name="personoutline"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>פרופיל אישי</q-item-label>
+            <!--            <q-item-label caption>localhost:8082/#/used-parts</q-item-label>-->
+          </q-item-section>
+        </q-item>
         <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
           <q-item-section avatar>
-            <q-icon name="school" />
+            <q-icon name="staroutline"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label>New Parts</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
+            <q-item-label>מודעות</q-item-label>
+            <!--            <q-item-label caption>quasar.dev</q-item-label>-->
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" href="http://localhost:8082/#/used-parts">
-          <q-item-section avatar>
-            <q-icon name="code" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Used Parts</q-item-label>
-            <q-item-label caption>localhost:8082/#/used-parts</q-item-label>
-          </q-item-section>
-        </q-item>
+
         <q-item clickable tag="a" target="_blank" href="https://chat.quasar.dev">
           <q-item-section avatar>
-            <q-icon name="chat" />
+            <q-icon name="layersoutline"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label>Group purchase</q-item-label>
-            <q-item-label caption>chat.quasar.dev</q-item-label>
+            <q-item-label>רכישה קבוצתית</q-item-label>
+            <!--            <q-item-label caption>chat.quasar.dev</q-item-label>-->
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
           <q-item-section avatar>
-            <q-icon name="forum" />
+            <q-icon name="cameraoutline"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label>Videos</q-item-label>
-            <q-item-label caption>forum.quasar.dev</q-item-label>
+            <q-item-label>פינה חמה</q-item-label>
+            <!--            <q-item-label caption>forum.quasar.dev</q-item-label>-->
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://twitter.com/quasarframework">
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
+
+        <q-item clickable tag="a">
+          <!--          <q-item-section avatar>-->
+          <!--&lt;!&ndash;            <q-icon name="rss_feed"/>&ndash;&gt;-->
+          <!--          </q-item-section>-->
           <q-item-section>
-            <q-item-label>Post a new ad</q-item-label>
-            <q-item-label caption>@quasarframework</q-item-label>
+            <q-btn id="signOutBtn" @click="singOut()">התנתק</q-btn>
           </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-<!--      <TableViewer :tableName = "'tableItem'" />-->
-<!--      <TableViewer :tableName = "'tableUsers'" />-->
-<!--      <home/>-->
+      <!--      <TableViewer :tableName = "'tableItem'" />-->
+      <!--      <TableViewer :tableName = "'tableUsers'" />-->
+      <!--      <home/>-->
       <router-view></router-view>
 
     </q-page-container>
+    <!--    <button @click="getUsers">Get Users</button>-->
+
   </q-layout>
 </template>
 
 <script>
+import axios from 'axios';
 import Home from "./views/Home";
+import firebaseInstance from "./middleware/firebase";
 
 export default {
   name: 'LayoutDefault',
-
-  components: {
-    Home
-  },
-
-  data () {
+  components: {Home},
+  data() {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      right: false
+    }
+  },
+  methods: {
+    goProfile() {
+      if (!this.$route.params.id) {
+        this.$router.push(`profile/${window.user.uid}`)
+      }
+    },
+    getUsers() {
+      axios.get('http://localhost:5000/users')
+          .then(result => {
+            console.log(result)
+          })
+          .catch(error => console.log(error))
+    },
+    singOut() {
+      firebaseInstance.firebase.auth().signOut().then(() => {
+        this.$router.push('/');
+        // Sign-out successful.
+      }).catch((error) => {
+        console.error(error);
+      });
     }
   }
 }
 </script>
 
 <style>
+#signOutBtn {
+  border-radius: 20px;
+  background-color: yellow;
+  width: 120px;
+  justify-content: center;
+  color: #696969;
+}
 </style>

@@ -1,43 +1,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Connections from '../views/Connections.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/item/:id',
-    name: 'Item',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "item" */ '../views/Item.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/used-parts',
-    name: 'UsedParts',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "used-parts" */ '../views/UsedParts.vue')
-  }
+    {
+        path: '/',
+        name: 'Connections',
+        component: Connections
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/item/:id',
+        name: 'Item',
+        component: () => import(/* webpackChunkName: "item" */ '../views/Item.vue')
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    },
+    {
+        path: '/profile/:id',
+        name: 'Profile',
+        component: () => import(/* webpackChunkName: "UsedParts" */ '../views/profile.vue')
+    },
+    {
+        path: '/items-details/:id',
+        name: 'ItemDetails',
+        component: () => import(/* webpackChunkName: "ItemDetails" */ '../views/ItemDetails.vue')
+    }
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router

@@ -1,37 +1,39 @@
 <template>
-  <q-page>
-    {{item}}
-    <div style=" padding-right: 20px;  text-align: right;">
-      <p>{{ item.manufacturer }}}</p>
-      <p>דגם</p>
-      <p>שנה</p>
-      <p>כמות</p>
-      <p>סטאטוס</p>
-      <p>מחיר</p>
-      <p>ברקוד</p>
+  <div>
+    <div v-for="(item, index) in items" style=" padding-right: 20px;  text-align: right;">
+      <p>{{ item.textPart }}</p>
+      <p>{{ item.manufacturer }}</p>
+      <p>{{ item.model }}</p>
+      <p>{{ item.selectYear }}</p>
+      <p>{{ item.quantityPart }}</p>
+      <p>{{ item.status }}</p>
+      <p>{{ item.pricePart }}</p>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script>
 import carsDatabase from '../middleware/firebase/database/cars'
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
-  name: "Details",
+  name: "Detalles",
   data() {
     return {
-      item: [],
+      // items: [],
       tableName: 'items'
     }
   },
+  computed:{
+    ...mapState('items',['editedItem', 'items']),
+  },
   methods: {
-     read() {
-      debugger
-      carsDatabase.getCars2({entity: this.tableName, itemId: this.$route.params.id}).then(res => {
-        this.item = res
-        console.log('test..... ',this.item);
-        debugger
-      })
+    ...mapActions('items', ['getItems','getInfoCards']),
+    ...mapMutations('items', ['setEditedItemId']),
+
+    read() {
+      this.setEditedItemId(this.$route.params.id);
+      this.getInfoCards();
     }
   },
   created() {

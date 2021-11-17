@@ -29,6 +29,7 @@
 
 <script>
 import localStorageDriver from '../middleware/local-storage';
+import api from '../middleware/api';
 
 export default {
   name: "TableViewer",
@@ -60,18 +61,21 @@ export default {
   created() {
     this.read();
   },
-  watch:{
-    isReload(){
+  watch: {
+    isReload() {
       this.read();
     }
   },
   methods: {
+    read() {
+      api.get({entity: this.tableName})
+          .then(result => {
+            this.rows = result;
+          })
+    },
     remove(id) {
       localStorageDriver.remove(this.tableName, id);
       this.read();
-    },
-    read() {
-      this.rows = localStorageDriver.select(this.tableName);
     },
     goToItem(id) {
       this.$router.push(`/item/${id}`);

@@ -1,51 +1,38 @@
 <template>
-  <login ></login>
+  <div>
+    <login v-if="flag" @registerScreen="goSingUp"/>
+    <register v-else @loginScreen="goSingIn"/>
+  </div>
 </template>
 
 <script>
-import login from '../middleware/firebase'
+import Login from "../components/auth/login";
+import Register from "../components/auth/register"
 
 export default {
-  name: "Signin",
-  components:{
-    login
+  name: "Connections",
+  components: {
+    Register,
+    Login
   },
-  data(){
-    return{
-
+  data() {
+    return {
+      flag: true
     }
   },
   methods: {
-    // sinGin() {
-    //   const provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
-    //   firebaseInstance.firebase.auth()
-    //       .signInWithPopup(provider)
-    //       .then((result) => {
-    //         /** @type {firebase.auth.OAuthCredential} */
-    //         var credential = result.credential;
-    //
-    //         // This gives you a Google Access Token. You can use it to access the Google API.
-    //         var token = credential.accessToken;
-    //         // The signed-in user info.
-    //         var user = result.user;
-    //         window.user = result.user;
-    //         this.$router.push('/home')
-    //         //
-    //       }).catch((error) => {
-    //     // Handle Errors here.
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     // The email of the user's account used.
-    //     var email = error.email;
-    //     // The firebase.auth.AuthCredential type that was used.
-    //     var credential = error.credential;
-    //     // ...
-    //   });
-    // },
+    goSingUp() {
+      // this.isReload = !this.isReload;
+      this.flag = false;
+    },
+    goSingIn() {
+      // this.isReload = !this.isReload;
+      this.flag = true;
+    }
   },
   created() {
     if (window.user) {
-      this.$router.push('/home');
+      this.$router.push('/home')
     }
   }
 }

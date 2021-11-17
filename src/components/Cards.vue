@@ -1,76 +1,166 @@
 <template>
-  <q-page class="constrain q-pa-md">
-    <div class="row">
-      <div class="col-12 col-sm-9">left
-        <div class="row justify-sm-start" style="background-color: #b2b2b2; padding: 10px">
-          <q-card v-for="item in this.card" class="my-card text-black col-6 col-sm-4"
-                  style="background: radial-gradient(circle, #f6dfa2 0%, #fff0b9 100%)">
-            <q-card-section>
-              <div class="text-h5" style="font-weight: bold">{{ item.textPart }}</div>
-              <p style="font-size: 16px">to <span style="font-weight: bold">{{ item.manufacturer }}</span></p>
-              <p style="font-size: 13px"><span style="font-weight: bold; font-size: 15px">Model - </span>{{item.model }}
-              </p>
-              <p style="font-size: 13px"><span style="font-weight: bold; font-size: 15px">Year - </span>{{item.selectYear }}</p>
-              <p style="font-size: 13px"><span
-                  style="font-weight: bold; font-size: 15px">Quantity - </span>{{ item.quantityPart }}</p>
-              <p style="font-size: 13px"><span style="font-weight: bold; font-size: 15px">Status - </span>{{item.status }}
-              </p>
-              <p style="font-size: 13px"><span style="font-weight: bold; font-size: 15px">Price - </span>{{item.pricePart}} ש"ח</p>
-              <p style="margin: -140px 0 100px 200px;width: 50px; height: 50px">{{ item.file }}</p>
-              <q-img src="https://cdn.quasar.dev/img/chicken-salad.jpg"/>
+  <q-page class="q-pa-md constrain" style=" min-height: 0;">
+    <p style="text-align: right; font-size: 30px; color: #ffce0c; font-weight: bold">: חלקים משומשים +</p>
+    <div class="container">
+      <q-card flat v-for="(product, index) in products" :key="index" class="my-card"
+              style="position: relative;border-radius: 20px">
+        <q-img @click="doSomething(product.id)" class="my-image" :src="product.url"
+               style="position: absolute; border-radius:20px;max-width: 300px; height: 157px"/>
+        <!--        <div v-ripple @click="doSomething(item.id)" class="card-touch">-->
+        <q-card-section @click="doSomething(product.id)">
+          <p class="card-title">{{ product.textPart }}</p>
+          <p class="card-title"><span>מחיר - </span>{{ product.pricePart }} ש"ח</p>
+        </q-card-section>
+        <q-card-section class="card-details">
+          <!--          <p><span>to </span>{{ item.manufacturer }}</p>-->
+          <!--          <p><span>Model - </span>{{ item.model }} </p>-->
+          <!--          <p><span>Year - </span>{{ item.selectYear }}</p>-->
+          <!--          <p><span>Quantity - </span>{{ item.quantityPart }}</p>-->
+          <!--          <p><span>Status - </span>{{ item.status }}</p>-->
 
-              <q-btn v-if="item" class="glossy" rounded color="primary" label="Update" @click="update(item.id)"
-                     style="margin-left: 40px"/>
-              <q-btn rounded color="red" label="delete" @click="remove(item.id)" style="margin-left: 20px"/>
-            </q-card-section>
-
-          </q-card>
-        </div>
-      </div>
-      <div class="col-3 col-sm-3">right
-
-      </div>
+        </q-card-section>
+        <q-card-actions class="card-btn" style="display: flex; justify-content: center">
+          <div class="my-btn">
+            <q-btn v-if="!flag" rounded color="primary" label="עדכון" @click="gotoItem(product.id)"
+                   style="margin-top: -110px; padding: 1px 0 1px 0"/>
+            <q-btn v-if="!flag" rounded color="red" label="מחיקה" @click="deleteCard(product.id)"
+                   style="margin-top: -110px; padding: 1px 0 1px 0"/>
+          </div>
+        </q-card-actions>
+      </q-card>
     </div>
-
-    <!--    </div>-->
   </q-page>
 </template>
 
 <script>
-import localStorageDriver from '../middleware/local-storage'
+// import localStorageDriver from '../middleware/local-storage'
+// import api from "../middleware/api";
+// import firebaseDatabase from "../middleware/firebase/database"
+// import storageDB from "../middleware/firebase/storage";
+import {mapState, mapActions, mapMutations} from 'vuex'
 
 export default {
   name: "Cards",
   components: {},
-  props: ['tableName'],
+  props: ['flag'], // 'tableName', 'isReload', 'myCards',
   data() {
     return {
-      card: []
+      // products: null,
+      // cards: [],
     }
   },
-  methods: {
-    read() {
-      this.card = localStorageDriver.select(this.tableName);
-    },
-    update(id) {
-      this.$router.push(`/item/${id}`);
-      // this.$router.push('/used-parts');
-    },
-    remove(id) {
-      localStorageDriver.remove(this.tableName, id);
-      this.read();
+  computed: {
+    ...mapState('items', ['editedItem', 'items', 'myItems']),
+
+    products: function () {
+      if (this.flag) {
+        return this.items
+      } else return this.myItems
     }
+  },
+
+  methods: {
+    ...mapActions('items', ['deleteItem', 'getItems', 'setEditItemById', 'getUserDetails']),
+    ...mapMutations('items', ['setEditedItemId']),
+
+    deleteCard(cardId) {
+      this.setEditedItemId(cardId)
+      // debugger
+      this.deleteItem()
+    },
+    gotoItem(id) {
+      this.flaq = true;
+      this.$router.push(`/item/${id}`);
+    },
+    doSomething(id) {
+      // this.$q.notify('לבדיקה בלבד')
+      console.log(this.items)
+      if (!this.flaq) {
+        this.$router.push(`/items-details/${id}`);
+      }
+    },
+    // remove(id) {
+    //   // debugger
+    //   // let newId = this.cards.find(x => x.id === id);
+    //   // console.log(newId.imgName); newId.imgName
+    //   storageDB.deleteImg({imageName: id})
+    //       .then(() => {
+    //         firebaseDatabase.remove({entity: this.tableName, id})
+    //             .then(() => {
+    //               this.$router.push('/used-parts')
+    //               // this.read();
+    //             });
+    //       })
+    // }
   },
   created() {
-    this.read();
-  }
+  },
+  // watch: {
+  //   isReload() {
+  //     this.read()
+  //   }
+  // }
 }
+
 </script>
 
-<style lang="sass">
-.my-card
-  width: 30%
-  height: auto
-  max-width: 300px
+<style>
+
+/*.my-btn:active {*/
+/*  position: absolute;*/
+/*  z-index: 10;*/
+/*}*/
+
+.q-card {
+  height: 155px;
+  width: 150px;
+  /*padding: 0.5em;*/
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.my-card {
+  transition: 0.2s;
+}
+
+.my-image {
+  /*height: auto;*/
+  /*width: 150px;*/
+}
+
+.q-card:hover {
+  opacity: .6;
+}
+
+.container {
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 1em;
+}
+
+.card-title {
+  font-size: 1.2em;
+  text-align: right;
+  font-weight: bold;
+  color: #ffcf00;
+}
+
+.card-details {
+
+}
+
+.card-details p {
+
+}
+
+.card-details span {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card-btn .q-btn {
+  padding: 0.3em 0.2em;
+}
 
 </style>
