@@ -1,0 +1,31 @@
+[debug] [2021-11-21T12:18:17.667Z] ----------------------------------------------------------------------
+[debug] [2021-11-21T12:18:17.670Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\YEHUDA\Desktop\development WebApp\first-vue-items\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2021-11-21T12:18:17.670Z] CLI Version:   9.22.0
+[debug] [2021-11-21T12:18:17.670Z] Platform:      win32
+[debug] [2021-11-21T12:18:17.670Z] Node Version:  v14.17.6
+[debug] [2021-11-21T12:18:17.672Z] Time:          Sun Nov 21 2021 14:18:17 GMT+0200 (Israel Standard Time)
+[debug] [2021-11-21T12:18:17.672Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-11-21T12:18:17.723Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-11-21T12:18:17.723Z] > authorizing via signed-in user (yehuda.himelfart@gmail.com)
+[debug] [2021-11-21T12:18:17.723Z] [iam] checking project la-fabela for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-11-21T12:18:17.725Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/la-fabela:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-11-21T12:18:18.827Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 21 Nov 2021 12:18:19 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=554","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-21T12:18:18.828Z] > refreshing access token with scopes: []
+[debug] [2021-11-21T12:18:18.828Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-21T12:18:19.216Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sun, 21 Nov 2021 12:18:19 GMT","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-21T12:18:19.239Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/la-fabela [none]
+[debug] [2021-11-21T12:18:19.828Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/la-fabela 200
+[debug] [2021-11-21T12:18:19.829Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/la-fabela {"projectId":"la-fabela","projectNumber":"159781369090","displayName":"la-fabela","name":"projects/la-fabela","resources":{"hostingSite":"la-fabela","realtimeDatabaseInstance":"la-fabela-default-rtdb","storageBucket":"la-fabela.appspot.com","locationId":"europe-west"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'la-fabela'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2021-11-21T12:18:19.835Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-11-21T12:18:19.835Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-21T12:18:20.190Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Sun, 21 Nov 2021 12:18:20 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-21T12:18:20.211Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/la-fabela/versions  
+ {"config":{},"labels":{"deployment-tool":"cli-firebase"}}

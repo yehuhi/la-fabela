@@ -1,0 +1,17 @@
+{
+  "name": "La_Fabela",
+  "short_name": "La_Fabela",
+  "gcm_sender_id": "159781369090",
+  "icons": [
+    {
+      "src": "/assets/autoparts.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#2196f3",
+  "theme_color": "#2196f3"
+}
