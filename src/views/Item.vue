@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!--    {{ $route.params.id }}-->
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    {{ this.item }}-->
     <br>
     <AddItem v-if="flag" :tableName="tableName" :item="item"></AddItem>
 
@@ -11,10 +7,6 @@
 </template>
 
 <script>
-// import localStorageDriver from '../middleware/local-storage'
-// import api from "../middleware/api";
-// const tableName = 'tableItem';
-
 import AddItem from "../components/AddItem";
 import firebaseDatabase from "../middleware/firebase/database"
 import {mapActions, mapMutations, mapState} from "vuex";
@@ -46,20 +38,19 @@ export default {
     // },
 
     getItemByIds() {
+      debugger
       firebaseDatabase.getById({entity: this.tableName, itemId: this.$route.params.id})
           .then(result => {
-            // debugger
+            debugger
             this.item = result;
             this.flag = true
+            debugger
             console.log(this.item, 'im item')
           })
-      // this.item = localStorageDriver.getItemById(this.tableName, this.$route.params.id);
     }
   },
   created() {
-    // debugger// In loading the component, active the method - getItemByIds()
     this.getItemByIds(this.$route.params.id);
-  //   this.get();
   }
 }
 </script>

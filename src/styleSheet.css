@@ -1,0 +1,116 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%; /* 1rem = 10px*/
+}
+
+span {
+    font-weight: bold;
+}
+
+.itemDetails-title {
+    margin: 0 0 0 140px;
+    color: #ffce0c;
+    font-size: 25px;
+    font-weight: bold
+}
+
+.item-detail-main {
+    width: 97%;
+    height: auto;
+    max-width: 600px;
+    margin: 1rem 0 1rem 0;
+    /*height: 50rem;*/
+}
+
+.item-detail-card {
+    display: flex;
+    flex-direction: column;
+    border: #ffce0c solid .2rem;
+    border-radius: 0.5rem;
+
+}
+
+.item-detail-image {
+    height: 33.0rem;
+    background: #ffce0c;
+}
+
+#item-image {
+    width: 100%;
+    height: 33.2rem;
+    background-size: contain;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+
+.item-detail-info {
+    height: 35rem;
+    position: relative;
+}
+
+.item-detail-info-inside {
+    direction: rtl;
+    background: linear-gradient(to right, #ffd22e, #3f3d3d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-bottom-left-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    height: 35rem;
+    position: absolute;
+    padding-top: 10px;
+}
+
+.product-info-yellow-color{
+    color: #ffcf00;
+}
+
+.product-info-white-color{
+    color: #ffffff;
+}
+
+.product-info-black-color{
+    color: #ff0000;
+}
+
+.product-info-right {
+    margin-top: .6rem;
+    direction: rtl;
+    text-decoration: none;
+}
+
+.product-info-left {
+    margin-top: .6rem;
+    font-size: 1.5rem;
+    direction: rtl;
+    /*color: blue;*/
+    text-decoration: none;
+}
+
+.phone-color {
+    color: blue;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.product-info-left-whatssap {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cart-button {
+    background: linear-gradient(to left, #ffcf00, #312916); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    margin-top: 3rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}

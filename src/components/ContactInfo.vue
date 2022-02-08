@@ -1,13 +1,13 @@
 <template>
-  <!--  v-for="(item, index) in cards" :key="index"-->
   <div class="container">
     <div id="frame" v-for="(item, index) in cards" :key="index">
       <div id="frame-text">
         <q-input class="input-contact" borderless v-model="item.userName" label="שם משתמש"/>
         <q-input class="input-contact" borderless v-model="item.phone" label="מס' פלאפון"/>
-        <q-input v-if="item.email.length>8" class="input-contact" borderless v-model="item.email" label="אימייל"/>
+        <q-input v-if="item.email.substring(0,8)+'...'" class="input-contact" borderless v-model="item.email"
+                 label="אימייל"/>
         <q-img class="my-image" :src="item.url"
-               style=" border-radius: 120px; height: 100px; max-width: 100px; right: 180px; margin-top: -210px"/>
+               style=" border-radius: 120px; height: 130px; max-width: 130px; right: 180px; margin-top: -210px"/>
       </div>
     </div>
   </div>
@@ -15,30 +15,42 @@
 
 <script>
 import dataUser from '../middleware/firebase/database/cars/index'
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "ContactInfo",
+  props: ['itemsUser'],
   data() {
     return {
       cards: [],
       tableName: 'users',
       flag: true
-
     }
   },
+  computed: {
+    ...mapState('users', ['privateUser', 'userStore']),
+
+  },
   methods: {
+    ...mapActions('users', ['getStoreInfo', 'getStores']),
+    wichUser() {
+      debugger
+      if (this.userStore.imStore) {
+        this.tableName = 'stores'
+      }
+    },
     contactInfo() {
-      // debugger
+      debugger
       dataUser.getCards({entity: this.tableName})
           .then(res => {
-            // debugger
+            debugger
             this.cards.push(res);
-            // console.log(this.cards)
-            // debugger
           })
     },
   },
-  created() {
+  async created() {
+    // this.getStores();
+    await this.wichUser();
     this.contactInfo();
   }
 }
@@ -65,18 +77,20 @@ export default {
   width: 90%;
   margin-top: -10px;
   background-color: #ffce0c;
-  border-radius: 20px;
-  max-width: 350px;
+  border-radius: 8px;
+  max-width: 380px;
   /*text-align: center*/
 }
+
+
 
 .input-contact {
   justify-content: flex-end;
 }
 
 #frame-text {
-  text-align: center;
-  margin: 35px -30px 0 10px;
+  /*text-align: left;*/
+  margin: 35px 1px 0 10px;
   font-weight: bold;
   font-size: 30px;
 }

@@ -1,0 +1,106 @@
+// import localStorageDriver from '../middleware/local-storage'
+// import api from "../middleware/api";
+// import firebaseDatabase from "../middleware/firebase/database";
+// import storageDB from "../middleware/firebase/storage";
+// import localStorageDriver from '../middleware/local-storage'
+// import api from "../middleware/api";
+// import firebaseDatabase from "../middleware/firebase/database"
+// import storageDB from "../middleware/firebase/storage";
+// import localStorageDriver from '../middleware/local-storage'
+// import api from "../middleware/api";
+// const tableName = 'tableItem';
+
+//@itemAdded="reloadTable"
+      // this.$q.notify('לבדיקה בלבד')
+
+    // insert() {
+    //   firebaseDatabase.generateId({entity: 'Test'})
+    //       .then(id => {
+    //         console.log(id)
+    //         storageDB.uploadImg({imageName: id, file: this.editedItem.image})
+    //             .then(url => {
+    //               console.log(url)
+    //               this.editedItem.url = url;  <-----Sara
+    //               firebaseDatabase.create({entity: this.tableName, item: this.editedItem, id: id}) // Database
+    //                   .then(() => {
+    //                     this.$emit('itemAdded'); // read to event on the home Component <-----Sara
+
+    // debugger
+    // this.editedItem.imgName = this.editedItem.image.name;
+    //                   })
+    //             }) // Storage upload + download image
+    //       })
+    // },
+
+    // insert() {
+    //   storageDB.uploadImg({imageName: this.editedItem.image.name, file: this.editedItem.image}) // Storage upload + download image
+    //       .then( url => {
+    //         // debugger
+    //         this.editedItem.url = url;
+    //         this.editedItem.imgName = this.editedItem.image.name;
+    //         // debugger
+    //         console.log(this.editedItem.url);
+    //         firebaseDatabase.create({entity: this.tableName, item: this.editedItem}) // Database
+    //             .then((res) => {
+    //               this.$emit('itemAdded'); // read to event on the home Component
+    //               // debugger
+    //               // this.editedItem.imgName = this.editedItem.image.name;
+    //             })
+    //       });
+    // },
+
+    // onReset() {
+    //   this.manufacturer = null
+    //   this.status = null,
+    //       this.textPart = null,
+    //       this.Vehicle = null,
+    //       this.model = null,
+    //       this.numberPart = null,
+    //       this.pricePart = null,
+    //       this.quantityPart = null,
+    //       this.selectYear = null,
+    //       this.image = null
+    // }
+
+        // remove(id) {
+        //   // debugger
+        //   // let newId = this.cards.find(x => x.id === id);
+        //   // console.log(newId.imgName); newId.imgName
+        //   storageDB.deleteImg({imageName: id})
+        //       .then(() => {
+        //         firebaseDatabase.remove({entity: this.tableName, id})
+        //             .then(() => {
+        //               this.$router.push('/used-parts')
+        //               // this.read();
+        //             });
+        //       })
+        // }
+
+  // watch: {
+  //   isReload() {
+  //     this.read()
+  //   }
+  // }
+
+        // this.isReload = !this.isReload;
+
+
+    // let imagRef = await firebaseInstance.firebase.storage().ref().child('images')
+    // let specificImg = await imagRef.child(`cards/` + options.imageName).put(options.file)
+    // specificImg.ref.getDownloadURL()
+    //     .then((url) => {
+    //         console.log(url)
+    //         return url;
+    //     })
+
+        getModelCars() {
+          axios.get('http://localhost:5000/model-cars')
+              .then(result => {
+              })
+              .catch(error => console.log(error))
+        }
+
+
+    reloadTable() {
+      this.isReload = !this.isReload;
+    },

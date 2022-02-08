@@ -1,15 +1,51 @@
 export default {
-    setItems: ((state, items) => state.items = items),
+    setPrivateItems: ((state, itemsPrivate) => state.itemsPrivate = itemsPrivate),
 
-    setMyItems: ((state, items) => state.myItems = items),
+    setStoreItems: ((state, itemsStore) => state.itemsStore = itemsStore),
 
-    setEditedItemId: ((state, id) => state.editedItemId = id),
+    setCartItems: ((state, cartItems) => state.cartItems = cartItems),
+
+    setCartTotal: ((state, cartItems) => state.cartItemsTotal = cartItems),
+
+    setFilterItems: ((state, cartItems) => state.editedItem = cartItems),
+
+    setItemDetails: ((state, cartItems) => state.editedItem = cartItems),
+
+    setMyPrivateItems: ((state, itemsPrivate) => state.myItemsPrivate = itemsPrivate),
+
+    setMyStoreItems: ((state, itemsStore) => state.myItemsStore = itemsStore),
+
+    setMyCartItems: ((state, cartItems) => state.myCartItems = cartItems),
+
+    setMyPostis: ((state, posts) => {
+        debugger
+        state.myPostis = posts
+    }),
+
+
+    setEditedItemId: ((state, id) => {
+        debugger
+        state.editedItemId = id
+    }),
 
     setEditedItem: ((state, item) => state.editedItem = item),
+
+    setEditItemId: ((state, item) => state.editItemId = item),
+
+    setEditedItemCart: ((state, item) => {
+        debugger
+        // let result = item.find(itm => itm === state.cartItems)
+        // if (!result) {
+        //     state.cartItems.push(item);
+        // }
+        state.cartItems.push(item);
+
+    }),
 
     resetEditedItemId: ((state) => state.editedItemId = ''),
 
     resetEditedItem: ((state) => {
+        debugger
         for (const key in state.editedItem) {
             state.editedItem[key] = ''
         }
@@ -21,16 +57,26 @@ export default {
     }),
 
     deleteItem: ((state, itemId) => {
-        const index = state.myItems.findIndex(p => p.id === itemId)
-        state.myItems.splice(index, 1)
+        debugger
+        const index = state.myItemsPrivate.findIndex(p => p.id === itemId)
+        state.myItemsPrivate.splice(index, 1)
     }),
 
-    insertItem: ((state, item) => {
-        state.items.push(item)
+    insertPrivateItem: ((state, item) => {
+        state.itemsPrivate.push(item)
+    }),
+    insertStoreItem: ((state, item) => {
+        state.itemsStore.push(item)
+    }),
+    insertFilterItems: ((state, item) => {
+        state.itemsFilterSearch.push(item)
     }),
 
     // *********** My Cards in the Profile *************
     insertMyItem: ((state, item) => {
+        state.myItemsPrivate.push(item)
+    }),
+    insertMyCartItem: ((state, item) => {
         state.items.push(item)
     }),
 }
